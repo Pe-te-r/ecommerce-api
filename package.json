@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
-    "gen":"drizzle-kit generate",
-    "migrate" : " tsx src/drizzle/migrate.ts",
+    "gen": "drizzle-kit generate",
+    "migrate": " tsx src/drizzle/migrate.ts",
     "start": "node dist/index.js",
     "studio": "drizzle-kit studio",
     "push": " drizzle-kit generate && tsx src/drizzle/migrate.ts"
@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "dotenv": "^16.4.5",
-    "drizzle-orm": "^0.32.1"
+    "drizzle-orm": "^0.32.1",
+    "i": "^0.3.7"
   }
 }
-
