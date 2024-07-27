@@ -1,4 +1,4 @@
 .env
 .gitignore
-node_modules
-src/drizzle/migrations
+node_modules/
+src/drizzle/migrations/
