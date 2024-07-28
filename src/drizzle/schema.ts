@@ -1,5 +1,6 @@
-import { integer } from 'drizzle-orm/pg-core';
-import {  pgTable,boolean,varchar, text, uuid } from 'drizzle-orm/pg-core';
+import { profile } from 'console';
+import { relations } from 'drizzle-orm';
+import {  pgTable,integer,serial,boolean,varchar, text, uuid } from 'drizzle-orm/pg-core';
 
 export const locationsTable = pgTable('locations',{
   id:uuid('id').defaultRandom().primaryKey(),
@@ -17,7 +18,7 @@ export const usersTable = pgTable('users', {
   location_id:uuid('location_id').references(()=> locationsTable.id,{onDelete:'cascade'})
 });
 
-export const codes = pgTable('codes',{
+export const codesTable = pgTable('codes',{
   id: uuid('id').defaultRandom().primaryKey(),
   code: text('code').unique().notNull(),
   user_id: uuid('user_id').references(()=>usersTable.id),
@@ -63,7 +64,7 @@ export const orderTable = pgTable('order',{
   status: varchar('status').default('pending'),
 })
 
-export const reviesTable = pgTable('reviews',{
+export const reviewsTable = pgTable('reviews',{
   id: uuid('id').defaultRandom().primaryKey(),
   user_id: uuid('user_id').references(()=>usersTable.id),
   product_id: uuid('product_id').references(()=>productTable.id),
@@ -80,3 +81,34 @@ export const paymentTable = pgTable('payment',{
   amount: varchar('amount').default('0'),
   transaction_id: varchar('transaction_id'),
 })
+
+
+// relationships
+export const locationsRelationship = relations(locationsTable,({many})=>({
+  users: many(usersTable),
+  products: many(productTable),
+}))
+
+export const usersRelationship = relations(usersTable,({one,many})=>({
+  codes: many(codesTable),
+  password: one(passwordTable,{
+    fields: [usersTable.id],
+    references:[passwordTable.id]
+  }) ,
+  profile: one(profileTable,{
+    fields: [usersTable.id],
+    references:[profileTable.id]
+  }),
+  orders: many(orderTable),
+  products: many(productTable),
+  reviews: many(reviewsTable),
+  payments: many(paymentTable),
+}))
+
+export const profileRelationship = relations(profileTable,({one})=>({
+  users: one(usersTable),
+}))
+
+export const passwordRelationship = relations(passwordTable,({one})=>({
+  users: one(usersTable),
+}))

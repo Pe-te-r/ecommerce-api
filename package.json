@@ -19,13 +19,16 @@
     "@types/node": "^20.14.12",
     "@types/pg": "^8.11.6",
     "drizzle-kit": "^0.23.0",
-    "pg": "^8.12.0",
     "tsx": "^4.16.2",
     "typescript": "^5.5.4"
   },
   "dependencies": {
+    "pg": "^8.12.0",  
+    "@hono/prometheus": "^1.0.1",
+    "@hono/node-server": "^1.12.0",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.32.1",
+    "hono": "^4.5.2",
     "i": "^0.3.7"
   }
 }

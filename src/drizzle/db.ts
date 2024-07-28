@@ -11,7 +11,6 @@ const main = async () => {
     await client.connect();  //connect to the database
 }
 main();
-console.log(process.env.Database_URL as string)
 
 
 const db = drizzle(client, { schema, logger: true })  //create a drizzle instance
