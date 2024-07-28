@@ -1,4 +1,3 @@
-import { profile } from 'console';
 import { relations } from 'drizzle-orm';
 import {  pgTable,integer,serial,boolean,varchar, text, uuid } from 'drizzle-orm/pg-core';
 
@@ -100,15 +99,108 @@ export const usersRelationship = relations(usersTable,({one,many})=>({
     references:[profileTable.id]
   }),
   orders: many(orderTable),
+  location:one(locationsTable,{
+    fields: [usersTable.location_id],
+    references:[locationsTable.id]
+  }),
   products: many(productTable),
   reviews: many(reviewsTable),
   payments: many(paymentTable),
+}))
+
+export const codesRelationship = relations(codesTable,({one})=>({
+  users: one(usersTable,{
+    fields: [codesTable.user_id],
+    references:[usersTable.id]
+  }),
+}))
+
+export const passwordRelationship = relations(passwordTable,({one})=>({
+  users: one(usersTable),
 }))
 
 export const profileRelationship = relations(profileTable,({one})=>({
   users: one(usersTable),
 }))
 
-export const passwordRelationship = relations(passwordTable,({one})=>({
-  users: one(usersTable),
+export const categoryRelationship = relations(categoryTable,({many})=>({
+  products: many(productTable),
 }))
+
+export const productRelationship = relations(productTable,({one, many})=>({
+  category: one(categoryTable,{
+    fields: [productTable.category_id],
+    references:[categoryTable.id]
+  }),
+  location: one(locationsTable,{
+    fields: [productTable.location_id],
+    references:[locationsTable.id]
+  }),
+  orders: many(orderTable),
+  reviews: many(reviewsTable),
+}))
+
+export const orderRelationship = relations(orderTable,({one, many})=>({
+  user: one(usersTable,{
+    fields: [orderTable.user_id],
+    references:[usersTable.id]
+  }),
+  product: one(productTable,{
+    fields: [orderTable.product_id],
+    references:[productTable.id]
+  }),
+  payments: many(paymentTable),
+}))
+
+export const reviewsRelationship = relations(reviewsTable,({one})=>({
+  user: one(usersTable,{
+    fields: [reviewsTable.user_id],
+    references:[usersTable.id]
+  }),
+  product: one(productTable,{
+    fields: [reviewsTable.product_id],
+    references:[productTable.id]
+  }),
+}))
+
+export const paymentRelationship = relations(paymentTable,({one})=>({
+  user: one(usersTable,{
+    fields: [paymentTable.user_id],
+    references:[usersTable.id]
+  }),
+  order: one(orderTable,{
+    fields: [paymentTable.order_id],
+    references:[orderTable.id]
+  }),
+}))
+
+// types
+export type locationInsertT = typeof locationsTable.$inferInsert
+export type locationSelectT = typeof locationsTable.$inferSelect
+
+export type usersInsertT = typeof usersTable.$inferInsert
+export type usersSelectT = typeof usersTable.$inferSelect
+
+export type codesInsertT = typeof codesTable.$inferInsert
+export type codesSelectT = typeof codesTable.$inferSelect
+
+export type passwordInsertT = typeof passwordTable.$inferInsert
+export type passwordSelectT = typeof passwordTable.$inferSelect
+
+export type profileInsertT = typeof profileTable.$inferInsert
+export type profileSelectT = typeof profileTable.$inferSelect
+
+export type categoryInsertT = typeof categoryTable.$inferInsert
+export type categorySelectT = typeof categoryTable.$inferSelect
+
+export type productInsertT = typeof productTable.$inferInsert
+export type productSelectT = typeof productTable.$inferSelect
+
+export type orderInsertT = typeof orderTable.$inferInsert
+export type orderSelectT = typeof orderTable.$inferSelect
+
+export type reviewsInsertT = typeof reviewsTable.$inferInsert
+export type reviewsSelectT = typeof reviewsTable.$inferSelect
+
+export type paymentInsertT = typeof paymentTable.$inferInsert
+export type paymentSelectT = typeof paymentTable.$inferSelect
