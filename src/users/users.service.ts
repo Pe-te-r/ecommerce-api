@@ -7,6 +7,7 @@ export const getAllUsersService =async(detailed:boolean,limit: number):Promise<u
     if(!detailed && limit>0){
         return await db.query.usersTable.findMany({limit: limit})
     }else if(detailed && limit > 0){
+        console.log(limit)
         return await db.query.usersTable.findMany({
             limit:limit,
             with:{
@@ -15,27 +16,12 @@ export const getAllUsersService =async(detailed:boolean,limit: number):Promise<u
                 orders:true,
             }
         })
-    }else if(detailed && limit <= 0){
+    }else if(detailed ){
         return await db.query.usersTable.findMany({
             with:{
                 location:true,
-                payments:{
-                    columns:{
-                        payment_method:true,
-                        payment_status:true,
-                        transaction_id:true,
-                        amount:true,
-                    }
-                },
-                reviews:{
-                    columns:{
-                        rating:true,
-                        comment:true,
-                    }
-                },
-                orders:true,
                 products:true,
-                profile:true,
+                orders:true,
             }
         })
     }else{

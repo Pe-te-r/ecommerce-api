@@ -45,7 +45,7 @@ export const categoryTable = pgTable('category',{
 )
 
 export const productTable = pgTable('product',{
-  id: uuid('id').defaultRandom().primaryKey(),
+  id: uuid('id').primaryKey().references(()=> usersTable.id,{onDelete:'cascade'}),
   name: varchar('name',{length:100}).notNull(),
   description: text('description'),
   price: varchar('price').notNull(),
@@ -135,6 +135,10 @@ export const productRelationship = relations(productTable,({one, many})=>({
   location: one(locationsTable,{
     fields: [productTable.location_id],
     references:[locationsTable.id]
+  }),
+  users: one(usersTable,{
+    fields: [productTable.id],
+    references:[usersTable.id]
   }),
   orders: many(orderTable),
   reviews: many(reviewsTable),

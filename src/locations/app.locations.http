@@ -1,0 +1,29 @@
+###Get All lococations
+GET  http://localhost:3000/api/locations
+# GET  http://localhost:3000/api/locations?detailed=true
+# GET  http://localhost:3000/api/locations?detailed=true&limit=2
+
+###Get one Location 
+GET  http://localhost:3000/api/locations/37787fd9-a6d5-4fdc-a57d-1bf4c243d12c
+# GET  http://localhost:3000/api/locations/37787fd9-a6d5-4fdc-a57d-1bf4c243d12c?detailed=true
+
+###update location
+PUT  http://localhost:3000/api/locations/37787fd9-a6d5-4fdc-a57d-1bf4c243d12c
+Content-Type: application/json
+
+    {
+        "plot":"next to jomaring",
+        "name":"kwa mca"
+    }
+
+### Add Location
+POST  http://localhost:3000/api/locations
+Content-Type: application/json
+
+    {
+        "plot":"next to pady view",
+        "name":"ngomongo"
+    }
+
+### Delete location
+DELETE  http://localhost:3000/api/locations/a6078ef8-2159-4146-ae7f-33de65ecacc8

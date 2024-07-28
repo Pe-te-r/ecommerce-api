@@ -1,0 +1,20 @@
+###Get All users
+GET http://localhost:3000/api/users
+# GET http://localhost:3000/api/users?detailed=true&limit=1
+# GET http://localhost:3000/api/users?detailed=true
+# GET http://localhost:3000/api/users?limit=1
+
+###Get one User
+GET http://localhost:3000/api/users/0a9fdf7f-3519-4896-b207-d17260c9aa14
+# GET http://localhost:3000/api/users/0a9fdf7f-3519-4896-b207-d17260c9aa14?detailed=true
+
+### Update User
+PUT http://localhost:3000/api/users/0a9fdf7f-3519-4896-b207-d17260c9aa14
+Content-Type: application/json
+    
+    {
+        # "first_name": "peter",
+        # "last_name": "wahu",
+        # "userName": "phantom"
+        "phone":"0768543269"
+    }

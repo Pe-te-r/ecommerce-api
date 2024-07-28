@@ -4,21 +4,24 @@ import { UUID } from "../types/types"
 
 export const getAllUsers = async(c: Context)=>{
     try {
-        const params = c.req.param()
-        const limit = params.limit || 0
-        const detailed = params.detailed || false
-        const results = getAllUsersService(Boolean(detailed),Number(limit))
+        const query = c.req.query()
+        const limit = query['limit'] || 0
+        const detailed = query['detailed']|| false
+        console.log(limit)
+        const results =await getAllUsersService(Boolean(detailed),Number(limit))
+        console.log(results)
         return c.json({'results': results})
     } catch (error: any) {
-        return c.json({'error':'cannot get all users'})
+        return c.json({'error':error?.message})
     }
 }
 
 export const getOneUser = async(c: Context)=>{
     try {
         const params = c.req.param()
+        const query = c.req.query()
         const id: UUID = params.id
-        const detailed = params.detailed || false
+        const detailed = query['detailed'] || false
         const result = await getOneUserService(Boolean(detailed),id)
         return c.json({'result': result})
     } catch (error: any) {
