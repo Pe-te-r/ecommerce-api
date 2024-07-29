@@ -40,7 +40,7 @@ export const profileTable = pgTable('profile',{
 
 export const categoryTable = pgTable('category',{
   id: uuid('id').defaultRandom().primaryKey(),
-  name: varchar('name',{length:50}).notNull(),
+  name: varchar('name',{length:50}).notNull().unique(),
 }
 )
 
@@ -50,8 +50,8 @@ export const productTable = pgTable('product',{
   description: text('description'),
   price: varchar('price').notNull(),
   quantity: varchar('quantity'),
-  category_id: uuid('category_id').references(()=>categoryTable.id),
-  location_id: uuid('location_id').references(()=>locationsTable.id),
+  category_id: uuid('category_id').references(()=>categoryTable.id,{onDelete: 'set null'}),
+  location_id: uuid('location_id').references(()=>locationsTable.id,{onDelete: 'set null'}),
 })
 
 export const orderTable = pgTable('order',{

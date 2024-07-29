@@ -49,8 +49,9 @@ export const updateCatgeory = async(c: Context)=>{
 export const createCategory = async(c: Context)=>{
     try {
         const data = await c.req.json()
+        console.log(data)
         const result = await createCategoryService(data)
-        c.json({'results': result})
+        return c.json({'results': result})
     } catch (error: any) {
         return c.json({'error':'cannot create category'})
     }

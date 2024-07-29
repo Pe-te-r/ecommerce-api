@@ -1,0 +1,24 @@
+### create category
+POST  http://localhost:3000/api/categories
+Content-Type: application/json
+
+    {
+        "name": "Electronics"
+    }   
+
+### get ALl category
+GET http://localhost:3000/api/categories?limit=2&detailed=true
+
+### get category by id
+GET http://localhost:3000/api/categories/4dd6fb42-6d57-4c6e-992c-e274878929a9?detailed=true
+
+###update category
+PUT http://localhost:3000/api/categories/4dd6fb42-6d57-4c6e-992c-e274878929a9
+Content-Type: application/json
+
+    {
+        "name": "Electronics & Accessories"
+    }
+
+### delete category
+DELETE http://localhost:3000/api/categories/4dd6fb42-6d57-4c6e-992c-e274878929a9
