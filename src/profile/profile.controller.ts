@@ -8,6 +8,7 @@ export const getAllProfile=async(c: Context)=>{
         const detailed = Boolean(queries['detailed']) || false
         const limit = parseInt(queries['limit']) || 0
         const results = await getAllProfileService(detailed,limit)
+        console.log(results)
         return c.json({'results': results})
     } catch (error: any) {
         console.error(error)

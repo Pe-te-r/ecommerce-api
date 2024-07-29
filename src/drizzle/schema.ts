@@ -30,11 +30,11 @@ export const passwordTable= pgTable('password',{
 })
 
 export const profileTable = pgTable('profile',{
-    id: uuid('user_id').references(()=>usersTable.id,{onDelete: 'cascade'}),
+    id: uuid('user_id').references(()=>usersTable.id,{onDelete: 'cascade'}).unique(),
     bio: text('bio'),
-    location: text('location'),
-    website: text('website'),
-    socialMedia: text('social_media'),
+    // location: text('location'),
+    // website: text('website'),
+    // socialMedia: text('social_media'),
 })
 
 

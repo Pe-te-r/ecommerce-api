@@ -4,6 +4,7 @@ import { csrf } from "hono/csrf"
 import { trimTrailingSlash } from "hono/trailing-slash"
 import { usersRoute } from "./users/users.route"
 import { locationsRoute } from "./locations/locations.route"
+import { profileRoute } from "./profile/profile.route"
 
 
 const app = new Hono().basePath('/api')
@@ -17,6 +18,7 @@ app.get('/',(c: Context)=>{
 
 app.route('/',usersRoute)
 app.route('/',locationsRoute)
+app.route('/',profileRoute)
 
 const port = 3000 || Number(process.env.PORT)
 

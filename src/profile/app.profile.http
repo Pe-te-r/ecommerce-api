@@ -1,0 +1,24 @@
+### getAllProfile
+GET http://localhost:3000/api/profiles
+# GET http://localhost:3000/api/profiles?detailed=true
+
+###create profile
+POST http://localhost:3000/api/profiles
+Content-Type: application/json
+
+    {
+        "id": "0a16ad87-5e85-4bce-9e18-cfceba6b7d34",
+        "bio":"i will always do ontime delivery"
+    }
+
+
+### upadate profile
+PUT http://localhost:3000/api/profiles/0a16ad87-5e85-4bce-9e18-cfceba6b7d34
+Content-Type: application/json
+
+    {
+        "bio":"i will always do on time delivery"
+    }
+
+### delete profile
+DELETE http://localhost:3000/api/profiles/0a16ad87-5e85-4bce-9e18-cfceba6b7d34

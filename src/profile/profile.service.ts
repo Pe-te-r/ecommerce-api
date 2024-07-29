@@ -21,6 +21,8 @@ export const getAllProfileService = async(detailed: boolean,limit: number)=>{
                 users:true,
             }
         })
+    }else{
+        return await db.query.profileTable.findMany()
     }
 }
 
