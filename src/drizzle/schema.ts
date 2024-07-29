@@ -14,7 +14,7 @@ export const usersTable = pgTable('users', {
   phone:varchar('phone').notNull(),
   email: text('email').notNull().unique(),
   verified:boolean('verified').default(false),
-  location_id:uuid('location_id').references(()=> locationsTable.id,{onDelete:'cascade'})
+  location_id:uuid('location_id').references(()=> locationsTable.id,{onDelete:'set null'})
 });
 
 export const codesTable = pgTable('codes',{

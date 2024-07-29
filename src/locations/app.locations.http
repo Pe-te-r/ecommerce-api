@@ -1,6 +1,6 @@
 ###Get All lococations
-GET  http://localhost:3000/api/locations
-# GET  http://localhost:3000/api/locations?detailed=true
+# GET  http://localhost:3000/api/locations
+GET  http://localhost:3000/api/locations?detailed=true
 # GET  http://localhost:3000/api/locations?detailed=true&limit=2
 
 ###Get one Location 

@@ -1,7 +1,7 @@
 ###Get All users
-GET http://localhost:3000/api/users
+# GET http://localhost:3000/api/users
 # GET http://localhost:3000/api/users?detailed=true&limit=1
-# GET http://localhost:3000/api/users?detailed=true
+GET http://localhost:3000/api/users?detailed=true
 # GET http://localhost:3000/api/users?limit=1
 
 ###Get one User
@@ -16,5 +16,22 @@ Content-Type: application/json
         # "first_name": "peter",
         # "last_name": "wahu",
         # "userName": "phantom"
-        "phone":"0768543269"
+        "phone":"0768543269",
+        "email": "phantom8526@duck.com"
+
     }
+
+### create user
+POST http://localhost:3000/api/users
+Content-Type: application/json
+    
+    {
+        "first_name": "John",
+        "last_name": "Doe",
+        "userName": "johndoe",
+        "phone":"0768543210",
+        "email": "johndoe@duck.com",
+        "verified": false,
+        "location_id": "aae2f4df-346a-4a38-b08e-64204482bce6"
+    }
+# aae2f4df-346a-4a38-b08e-64204482bce6
