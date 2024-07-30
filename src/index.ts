@@ -6,6 +6,8 @@ import { usersRoute } from "./users/users.route"
 import { locationsRoute } from "./locations/locations.route"
 import { profileRoute } from "./profile/profile.route"
 import { categoryRoute } from "./category/category.route"
+import { productRoute } from "./products/products.route"
+import { authRoute } from "./auth/auth.route"
 
 
 const app = new Hono().basePath('/api')
@@ -21,6 +23,8 @@ app.route('/',usersRoute)
 app.route('/',locationsRoute)
 app.route('/',profileRoute)
 app.route('/',categoryRoute)
+app.route('/',productRoute)
+app.route('/',authRoute)
 
 const port = 3000 || Number(process.env.PORT)
 

@@ -50,8 +50,9 @@ export const productTable = pgTable('product',{
   description: text('description'),
   price: varchar('price').notNull(),
   quantity: varchar('quantity'),
+  supplier_id: uuid('supplier_id').references(()=>usersTable.id,{onDelete:'cascade'}),
   category_id: uuid('category_id').references(()=>categoryTable.id,{onDelete: 'set null'}),
-  location_id: uuid('location_id').references(()=>locationsTable.id,{onDelete: 'set null'}),
+  // location_id: uuid('location_id').references(()=>locationsTable.id,{onDelete: 'set null'}),
 })
 
 export const orderTable = pgTable('order',{
@@ -85,7 +86,6 @@ export const paymentTable = pgTable('payment',{
 // relationships
 export const locationsRelationship = relations(locationsTable,({many})=>({
   users: many(usersTable),
-  products: many(productTable),
 }))
 
 export const usersRelationship = relations(usersTable,({one,many})=>({
@@ -132,12 +132,8 @@ export const productRelationship = relations(productTable,({one, many})=>({
     fields: [productTable.category_id],
     references:[categoryTable.id]
   }),
-  location: one(locationsTable,{
-    fields: [productTable.location_id],
-    references:[locationsTable.id]
-  }),
   users: one(usersTable,{
-    fields: [productTable.id],
+    fields: [productTable.supplier_id],
     references:[usersTable.id]
   }),
   orders: many(orderTable),

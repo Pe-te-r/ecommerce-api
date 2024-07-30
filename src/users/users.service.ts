@@ -31,7 +31,7 @@ export const getAllUsersService =async(detailed:boolean,limit: number):Promise<u
 
 
 
-export const getOneUserService =async(detailed: boolean,id:UUID)=>{
+export const getOneUserService =async(detailed: boolean,id:UUID): Promise<any>=>{
     if(detailed){
         return await db.query.usersTable.findFirst(
             {
@@ -67,13 +67,21 @@ export const getOneUserService =async(detailed: boolean,id:UUID)=>{
         )
     }
     return await db.query.usersTable.findFirst({
-        where:eq(usersTable.id,id)
+        where:eq(usersTable.id,id),
+        with:{
+            password:{
+                columns:{
+                    password:true
+                }
+            }
+        }
     })
 }
 
 
-export const createUserService =async(newUser: usersInsertT):Promise<{ id: string }[]>=>{
-    return await db.insert(usersTable).values(newUser).returning({'id': usersTable.id}).execute()
+export const createUserService =async(newUser: usersInsertT):Promise<UUID>=>{
+    const id= await db.insert(usersTable).values(newUser).returning({'id': usersTable.id}).execute()
+    return id[0].id
 }
 
 export const updateUserService =async(id: UUID, updatedUser: Partial<usersSelectT>): Promise<string>=>{

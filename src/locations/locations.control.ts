@@ -10,7 +10,7 @@ export const getAllLocations = async(c: Context)=>{
         const results = await getAllLocationsService(detailed,limit)
         return c.json({'results': results})
     } catch (error: any) {
-        return c.json({'error': 'can not get all locations'})        
+        return c.json({'error': error?.message})        
     }
 }
 

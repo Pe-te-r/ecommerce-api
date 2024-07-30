@@ -1,0 +1,13 @@
+### create new product
+POST http://localhost:3000/api/products
+Content-Type: application/json
+
+    {
+        "name": "New Product",
+        "description": "this is a new product",
+        "price": "99.99",
+        "quantity": "100",
+        "supplier_id":" ",
+        "category_id":""
+        
+    }
