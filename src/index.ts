@@ -8,11 +8,17 @@ import { profileRoute } from "./profile/profile.route"
 import { categoryRoute } from "./category/category.route"
 import { productRoute } from "./products/products.route"
 import { authRoute } from "./auth/auth.route"
+import { cors } from "hono/cors"
 
 
 const app = new Hono().basePath('/api')
 app.use(csrf())
 app.use(trimTrailingSlash())
+app.use(cors({
+  origin: '*', 
+  allowMethods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowHeaders: ['Content-Type', 'Authorization']
+}));
 
 
 app.get('/',(c: Context)=>{

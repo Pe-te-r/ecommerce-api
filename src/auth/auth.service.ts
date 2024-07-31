@@ -21,7 +21,19 @@ export const getPasswordService = async(id: UUID): Promise<passwordSelectT | und
     return await db.query.passwordTable.findFirst({where: eq(passwordTable.id,id)})
 }
 
-export const checkUserExists =async(email: string): Promise<boolean>=>{
-    const user = await db.query.usersTable.findFirst({where: eq(usersTable.email,email)})
+export const checkUserExists =async(email: string): Promise<any>=>{
+    return await db.query.usersTable.findFirst({where: eq(usersTable.email,email),
+        with:{
+            password:{
+                columns:{
+                    password:true,
+                }
+            }
+        }
+    })
+}
+
+export const checkUserName = async(userName: string): Promise<boolean> => {
+    const user = await db.query.usersTable.findFirst({where: eq(usersTable.userName, userName)})
     return!!user
 }

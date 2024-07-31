@@ -1,12 +1,19 @@
 import { Context } from "hono";
 import * as bcrypt from "bcrypt";
 import { createUserService, getOneUserService } from "../users/users.service";
-import { storePasswordService } from "./auth.service";
+import { checkUserExists, checkUserName, storePasswordService } from "./auth.service";
 import { UUID } from "../types/types";
 //  register
 export const registerController=async(c: Context)=>{
     try {
         const data = await c.req.json()
+        const userExists = await checkUserExists(data.email)
+        if(userExists){
+            return c.json({'error':'Email already exists'})
+        }
+        if(await checkUserName(data.userName)){
+            return c.json({'error':'Username already exists'})
+        }
         const password = data.password
         const hashedPassword = await bcrypt.hash(password,10)
         delete data.password
@@ -28,11 +35,13 @@ export const registerController=async(c: Context)=>{
 export const loginController=async(c: Context)=>{
     try {
         const data = await c.req.json()
-        const {id, password} = data
-        const user = await getOneUserService(false,id)
+        console.log(data)
+        const {email, password} = data
+        const user = await checkUserExists(email)
+        console.log(user)
 
         if(user){
-            const valid = await bcrypt.compare(password, String(user?.password))
+            const valid = await bcrypt.compare(password, String(user?.password.password))
             if(valid){
                 return c.json({'results':'Login successful'})
             }
