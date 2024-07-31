@@ -1,14 +1,14 @@
 ###Get All lococations
-# GET  http://localhost:3000/api/locations
-GET  http://localhost:3000/api/locations?detailed=true
+GET  http://localhost:3000/api/locations
+# GET  http://localhost:3000/api/locations?detailed=true
 # GET  http://localhost:3000/api/locations?detailed=true&limit=2
 
 ###Get one Location 
-GET  http://localhost:3000/api/locations/37787fd9-a6d5-4fdc-a57d-1bf4c243d12c
+GET  http://localhost:3000/api/locations/15a29b47-5840-4f4c-8dcf-bc4bfca730c3?detailed=true
 # GET  http://localhost:3000/api/locations/37787fd9-a6d5-4fdc-a57d-1bf4c243d12c?detailed=true
 
 ###update location
-PUT  http://localhost:3000/api/locations/37787fd9-a6d5-4fdc-a57d-1bf4c243d12c
+PUT  http://localhost:3000/api/locations/3f3bd87e-f541-4644-9547-7dbaf0a2b147
 Content-Type: application/json
 
     {
@@ -21,8 +21,8 @@ POST  http://localhost:3000/api/locations
 Content-Type: application/json
 
     {
-        "plot":"next to pady view",
-        "name":"ngomongo"
+        "plot":"Levin's",
+        "name":"diaspora"
     }
 
 ### Delete location

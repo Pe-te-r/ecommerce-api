@@ -8,7 +8,7 @@ export const getAllLocationsService = async(detailed: boolean,limit: number)=>{
         return await db.query.locationsTable.findMany({
             limit:limit,
             with:{
-                users:true,
+                // users:true,
             }
         })
     }else if(!detailed && limit >0){
@@ -18,7 +18,7 @@ export const getAllLocationsService = async(detailed: boolean,limit: number)=>{
     }else if(detailed){
         return await db.query.locationsTable.findMany({
             with:{
-                users:true,
+                // users:true,
             }
         })
     }else{
@@ -31,8 +31,13 @@ export const getOneLocationService = async(detailed: boolean,id: UUID)=>{
         return await db.query.locationsTable.findFirst(
             {
                 where:eq(locationsTable.id,id),
+                columns:{
+                    name:true,
+                },
                 with:{
-                    users:true,
+                    plots:true,
+
+                    // users:true,
                 }
             }
         )

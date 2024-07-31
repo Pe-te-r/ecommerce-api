@@ -32,7 +32,7 @@ export const updateLocation = async(c: Context)=>{
         const id: UUID = c.req.param('id')
         const updateLocation =await c.req.json()
         const result = await updateLocationService(id,updateLocation)
-        return c.json({'result': result})
+        return c.json({'results': result})
     } catch (error:any) {
         return c.json({'error': 'can not update location'})        
     }
@@ -42,7 +42,8 @@ export const addLocation = async(c: Context)=>{
     try {
         const newLocation = await c.req.json()
         const result = await addLocationService(newLocation)
-        return c.json({'result': result})
+        console.log(result)
+        return c.json({'results': result})
     } catch (error: any) {
         return c.json({'error': 'can not add location'})        
     }
@@ -53,7 +54,7 @@ export const deleteLocation = async(c: Context)=>{
     try {
         const id: UUID = c.req.param('id')
         const result = await deleteLocationService(id)
-        return c.json({'result': result})
+        return c.json({'results': result})
     } catch (error: any) {
         return c.json({'error': 'can not delete location'})        
     }

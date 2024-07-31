@@ -4,8 +4,14 @@ import {  pgTable,integer,serial,boolean,varchar, text, uuid } from 'drizzle-orm
 export const locationsTable = pgTable('locations',{
   id:uuid('id').defaultRandom().primaryKey(),
   name:varchar('name',{length:100}).notNull(),
-  plot: text('plot').notNull(),
 })
+
+export const plotTable = pgTable('plot',{
+  id:uuid('id').defaultRandom().primaryKey(),
+  location_id: uuid('location_id').references(()=>locationsTable.id,{onDelete: 'cascade'}),
+  plot: varchar('plot',{length: 100}).notNull()
+})
+
 export const usersTable = pgTable('users', {
   id: uuid('id').defaultRandom().primaryKey(),
   first_name: text('first_name').notNull(),
@@ -14,7 +20,7 @@ export const usersTable = pgTable('users', {
   phone:varchar('phone').notNull(),
   email: text('email').notNull().unique(),
   verified:boolean('verified').default(false),
-  location_id:uuid('location_id').references(()=> locationsTable.id,{onDelete:'set null'})
+  plot_id:uuid('plot_id').references(()=> plotTable.id,{onDelete:'set null'})
 });
 
 export const codesTable = pgTable('codes',{
@@ -32,9 +38,6 @@ export const passwordTable= pgTable('password',{
 export const profileTable = pgTable('profile',{
     id: uuid('user_id').references(()=>usersTable.id,{onDelete: 'cascade'}).unique(),
     bio: text('bio'),
-    // location: text('location'),
-    // website: text('website'),
-    // socialMedia: text('social_media'),
 })
 
 
@@ -85,7 +88,16 @@ export const paymentTable = pgTable('payment',{
 
 // relationships
 export const locationsRelationship = relations(locationsTable,({many})=>({
-  users: many(usersTable),
+  // users: many(usersTable),
+  plots: many(plotTable),
+}))
+
+export const plotRelationship = relations(plotTable,({one})=>({
+  location: one(locationsTable,{
+    fields: [plotTable.location_id],
+    references:[locationsTable.id]
+  }),
+  
 }))
 
 export const usersRelationship = relations(usersTable,({one,many})=>({
@@ -99,9 +111,9 @@ export const usersRelationship = relations(usersTable,({one,many})=>({
     references:[profileTable.id]
   }),
   orders: many(orderTable),
-  location:one(locationsTable,{
-    fields: [usersTable.location_id],
-    references:[locationsTable.id]
+  plot:one(plotTable,{
+    fields: [usersTable.plot_id],
+    references:[plotTable.location_id]
   }),
   products: many(productTable),
   reviews: many(reviewsTable),
